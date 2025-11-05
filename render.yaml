@@ -1,3 +1,7 @@
+databases:
+  - name: n8n-db
+    plan: free
+
 services:
   - type: web
     name: n8n-server
@@ -12,7 +16,36 @@ services:
         value: "admin"
       - key: N8N_BASIC_AUTH_PASSWORD
         value: "123456"
+
       - key: N8N_PORT
         value: "5678"
+      - key: PORT
+        value: "5678"
+
+      # Conexión a PostgreSQL creada por Render
+      - key: DB_TYPE
+        value: "postgresdb"
+      - key: DB_POSTGRESDB_HOST
+        fromDatabase:
+          name: n8n-db
+          property: host
+      - key: DB_POSTGRESDB_PORT
+        fromDatabase:
+          name: n8n-db
+          property: port
+      - key: DB_POSTGRESDB_DATABASE
+        fromDatabase:
+          name: n8n-db
+          property: database
+      - key: DB_POSTGRESDB_USER
+        fromDatabase:
+          name: n8n-db
+          property: user
+      - key: DB_POSTGRESDB_PASSWORD
+        fromDatabase:
+          name: n8n-db
+          property: password
+
+      # Se actualizará después con la URL real
       - key: WEBHOOK_TUNNEL_URL
-        value: ""   # ← se completará cuando Render te genere la URL
+        value: ""
